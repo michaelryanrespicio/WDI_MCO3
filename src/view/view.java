@@ -4,23 +4,12 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
-import java.awt.Font;
 import javax.swing.JPanel;
-import java.awt.GridLayout;
 import java.util.ArrayList;
-
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.JButton;
-import java.awt.Choice;
-import javax.swing.JList;
-import java.awt.Component;
-import javax.swing.Box;
-import javax.swing.border.BevelBorder;
+import javax.swing.JOptionPane;
+
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import model.BTMWithMySQL;
@@ -30,7 +19,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
-import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 
 public class view {
@@ -99,12 +87,13 @@ public class view {
 		/*14*/list.add("DELETE AS & AF Enrolment in primary education,  both sexes (number)");
 		/*15*/list.add("DELETE AS & AF Primary education,  pupils (% female)");
 		//update
-		/*16*/list.add("UPDATE EU & AM Enrolment in primary education,  both sexes (number)");
-		/*17*/list.add("UPDATE EU & AM Primary education,  pupils (% female)");
-		/*18*/list.add("UPDATE AS & AF Enrolment in primary education,  both sexes (number)");
-		/*19*/list.add("UPDATE AS & AF Primary education,  pupils (% female)");
+		/*16*/list.add("UPDATE EU & AM First Primary education,  pupils (% female)");
+		/*17*/list.add("UPDATE EU & AM Second Primary education,  pupils (% female)");
+		/*18*/list.add("UPDATE AS & AF First Primary education,  pupils (% female)");
+		/*19*/list.add("UPDATE AS & AF Second Primary education,  pupils (% female)");
 		
 		query_list = new ArrayList<String>();
+		/*SELECTS FROM DATABASE*/
 		query_list.add("SELECT DBY.countrycode, DBY.yearc, DBY.data-SecondaryEnrollment.data as Not_Enrolled_in_Secondary_School" + 
 					   "\nFROM databyyear DBY, (SELECT * " 
 						+ "FROM databyyear DBY WHERE seriescode = \"SE.SEC.ENRL\") SecondaryEnrollment" 
@@ -127,6 +116,21 @@ public class view {
 					  + " WHERE FemalePercENRPRM.countrycode = TotalEnrolledPrimary.countrycode AND FemalePercENRPRM.yearc = TotalEnrolledPrimary.yearc #AND seriescode = \"SE.PRM.ENRL.FE.ZS\"");
 		query_list.add("SELECT * FROM databyyear WHERE seriescode = \"SE.PRM.ENRL.FE.ZS\"");	
 		query_list.add("SELECT * FROM databyyear WHERE seriescode = \"SE.PRM.ENRL\"");
+		/*INSERT INTO DATABASE*/
+		query_list.add("INSERT INTO databyyear(Countrycode, seriescode, yearc, data) VALUES(\"ABW\", \"SE.PRM.ENRL\",  \"2016[YR2016]\", \"10902\");");
+		query_list.add("INSERT INTO databyyear(Countrycode, seriescode, yearc, data) VALUES(\"ABW\", \"SE.PRM.ENRL.FE.ZS\",  \"2016[YR2016]\", \"50\");");
+		query_list.add("INSERT INTO databyyear(Countrycode, seriescode, yearc, data) VALUES(\"AFG\", \"SE.PRM.ENRL\",  \"2016[YR2016]\", \"10902\");");
+		query_list.add("INSERT INTO databyyear(Countrycode, seriescode, yearc, data) VALUES(\"AFG\", \"SE.PRM.ENRL.FE.ZS\",  \"2016[YR2016]\", \"50\");");
+		/*DELETE FROM DATABASE*/
+		query_list.add("DELETE FROM databyyear WHERE countrycode=\"ABW\" AND yearc = \"2016 [YR2016]\" AND seriescode = \"SE.PRM.ENRL\" AND DATA = \"10902\";");
+		query_list.add("DELETE FROM databyyear WHERE countrycode=\"ABW\" AND yearc = \"2016 [YR2016]\" AND seriescode = \"SE.PRM.ENRL.FE.ZS\" AND DATA = \"50\";");
+		query_list.add("DELETE FROM databyyear WHERE countrycode=\"AFG\" AND yearc = \"2016 [YR2016]\" AND seriescode = \"SE.PRM.ENRL\" AND DATA = \"10902\";");
+		query_list.add("DELETE FROM databyyear WHERE countrycode=\"AFG\" AND yearc = \"2016 [YR2016]\" AND seriescode = \"SE.PRM.ENRL.FE.ZS\" AND DATA = \"50\";");
+		/*UPDATE FORM DATABASE*/
+		query_list.add("UPDATE databyyear SET data = \"51.382\" WHERE countrycode=\"ABW\" AND yearc = \"2016 [YR2016]\" AND seriescode = \"SE.PRM.ENRL.FE.ZS\" AND data = \"48.857\";");
+		query_list.add("UPDATE databyyear SET data = \"48.857\" WHERE countrycode=\"ABW\" AND yearc = \"2016 [YR2016]\" AND seriescode = \"SE.PRM.ENRL.FE.ZS\" AND data = \"51.382\";");
+		query_list.add("UPDATE databyyear SET data = \"47.857\" WHERE countrycode=\"BEL\" AND yearc = \"2016 [YR2016]\" AND seriescode = \"SE.PRM.ENRL.FE.ZS\" AND data = \"48.648\";");
+		query_list.add("UPDATE databyyear SET data = \"48.648\" WHERE countrycode=\"BEL\" AND yearc = \"2016 [YR2016]\" AND seriescode = \"SE.PRM.ENRL.FE.ZS\" AND data = \"47.857\";");
 		frmAdvandbMco = new JFrame();
 		frmAdvandbMco.setBounds(100, 100, 700, 400);
 		frmAdvandbMco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -191,7 +195,7 @@ public class view {
 		frmAdvandbMco.getContentPane().add(lblChooseQuery);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setBounds(305, 53, 379, 277);
 		frmAdvandbMco.getContentPane().add(scrollPane);
 		
@@ -211,8 +215,10 @@ public class view {
 			public void itemStateChanged(ItemEvent arg0) {
 				// TODO Auto-generated method stub
 				textArea.setText(query_list.get(comboBox.getSelectedIndex()));
+				
 			}
 		});
+		
 		btnNewButton_1.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -221,12 +227,150 @@ public class view {
 				switch(selected){
 					case 0: textArea_1.setText(BTMWithMySQL.selectDidntReach());
 					break;
-					case 1:textArea_1.setText(BTMWithMySQL.selectOutSchool());
+					case 1: textArea_1.setText(BTMWithMySQL.selectOutSchool());
 					break;
+					case 2: textArea_1.setText(BTMWithMySQL.selectLiteracy());
+					break;
+					case 3: textArea_1.setText(BTMWithMySQL.selectRatio());
+					break;
+					case 4: textArea_1.setText(BTMWithMySQL.selectRequired());
+					break;
+					case 5: textArea_1.setText(BTMWithMySQL.selectVSPrimary());
+					break;
+					case 6: textArea_1.setText(BTMWithMySQL.selectPE());
+					break;
+					case 7: textArea_1.setText(BTMWithMySQL.selectPEEnrollment());
+					break;
+					case 8: if(BTMWithMySQL.insertFirstEUAM() == true){
+								textArea_1.setText(BTMWithMySQL.selectPEEnrollment());
+								JOptionPane.showMessageDialog(null, "Successfully Inserted!");
+							}
+							else JOptionPane.showMessageDialog(null, "Failed to Insert.");
+					break;
+					case 9: if(BTMWithMySQL.insertSecondEUAM() == true){
+							textArea_1.setText(BTMWithMySQL.selectPE());
+							JOptionPane.showMessageDialog(null, "Successfully Inserted!");
+							}
+							else JOptionPane.showMessageDialog(null, "Failed to Insert.");
+					break;
+					case 10: if(BTMWithMySQL.insertFirstASAF() == true){
+								textArea_1.setText(BTMWithMySQL.selectPEEnrollment());
+								JOptionPane.showMessageDialog(null, "Successfully Inserted!");
+							}
+							else JOptionPane.showMessageDialog(null, "Failed to Insert.");
+					break;
+					case 11: if(BTMWithMySQL.insertSecondASAF() == true){
+							textArea_1.setText(BTMWithMySQL.selectPE());
+							JOptionPane.showMessageDialog(null, "Successfully Inserted!");
+							}
+							else JOptionPane.showMessageDialog(null, "Failed to Insert.");
+					break;
+					case 12: if(BTMWithMySQL.deleteFirstEUAM() == true){
+						textArea_1.setText(BTMWithMySQL.selectPEEnrollment());
+						JOptionPane.showMessageDialog(null, "Successfully Inserted!");
+					}
+					else JOptionPane.showMessageDialog(null, "Failed to Insert.");
+					break;	
+					case 13: if(BTMWithMySQL.deleteSecondEUAM() == true){
+						textArea_1.setText(BTMWithMySQL.selectPE());
+						JOptionPane.showMessageDialog(null, "Successfully Inserted!");
+						}
+						else JOptionPane.showMessageDialog(null, "Failed to Insert.");
+					break;
+					case 14: if(BTMWithMySQL.deleteFirstASAF() == true){
+								textArea_1.setText(BTMWithMySQL.selectPEEnrollment());
+								JOptionPane.showMessageDialog(null, "Successfully Deleted!");
+							}
+							else JOptionPane.showMessageDialog(null, "Failed to Delete.");
+					break;
+					case 15: if(BTMWithMySQL.deleteSecondASAF() == true){
+							textArea_1.setText(BTMWithMySQL.selectPE());
+							JOptionPane.showMessageDialog(null, "Successfully Deleted!");
+							}
+							else JOptionPane.showMessageDialog(null, "Failed to Delete.");
+					break;
+					case 16: if(BTMWithMySQL.updateFirstEUAM() == true){
+						textArea_1.setText(BTMWithMySQL.selectPE());
+						JOptionPane.showMessageDialog(null, "Successfully Updated!");
+						}
+						else JOptionPane.showMessageDialog(null, "Failed to update.");
+					break;
+					case 17: if(BTMWithMySQL.updateSecondEUAM() == true){
+						textArea_1.setText(BTMWithMySQL.selectPE());
+						JOptionPane.showMessageDialog(null, "Successfully Updated!");
+						}
+						else JOptionPane.showMessageDialog(null, "Failed to update.");
+					break;
+					case 18: if(BTMWithMySQL.updateFirstASAF() == true){
+						textArea_1.setText(BTMWithMySQL.selectPE());
+						JOptionPane.showMessageDialog(null, "Successfully Updated!");
+						}
+						else JOptionPane.showMessageDialog(null, "Failed to update.");
+					break;
+					case 19: if(BTMWithMySQL.updateSecondASAF() == true){
+						textArea_1.setText(BTMWithMySQL.selectPE());
+						JOptionPane.showMessageDialog(null, "Successfully Updated!");
+						}
+						else JOptionPane.showMessageDialog(null, "Failed to update.");
+					break;					
+					
 				}
-				//textArea_1.setText(BTMWithMySQL.selectPE());
+				
 			}
 			
 		});
+		
+		btnNewButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				int selected = comboBox.getSelectedIndex();
+				switch(selected){
+					case 0: textArea_1.setText(BTMWithMySQL.selectDidntReach());
+					break;
+					case 1: textArea_1.setText(BTMWithMySQL.selectOutSchool());
+					break;
+					case 2: textArea_1.setText(BTMWithMySQL.selectLiteracy());
+					break;
+					case 3: textArea_1.setText(BTMWithMySQL.selectRatio());
+					break;
+					case 4: textArea_1.setText(BTMWithMySQL.selectRequired());
+					break;
+					case 5: textArea_1.setText(BTMWithMySQL.selectVSPrimary());
+					break;
+					case 6: textArea_1.setText(BTMWithMySQL.selectPE());
+					break;
+					case 7: textArea_1.setText(BTMWithMySQL.selectPEEnrollment());
+					break;
+					case 8: textArea_1.setText(BTMWithMySQL.selectPEEnrollment());
+					break;
+					case 9: textArea_1.setText(BTMWithMySQL.selectPE());
+					break;
+					case 10: textArea_1.setText(BTMWithMySQL.selectPEEnrollment());
+					break;
+					case 11: textArea_1.setText(BTMWithMySQL.selectPE());
+					break;
+					case 12: textArea_1.setText(BTMWithMySQL.selectPEEnrollment());
+					break;
+					case 13: textArea_1.setText(BTMWithMySQL.selectPE());
+					break;
+					case 14: textArea_1.setText(BTMWithMySQL.selectPEEnrollment());
+					break;
+					case 15: textArea_1.setText(BTMWithMySQL.selectPE());
+					break;
+					case 16: textArea_1.setText(BTMWithMySQL.selectPE());
+					break;
+					case 17: textArea_1.setText(BTMWithMySQL.selectPE());
+					break;
+					case 18: textArea_1.setText(BTMWithMySQL.selectPE());
+					break;
+					case 19: textArea_1.setText(BTMWithMySQL.selectPE());
+					break;
+				}
+				
+			}
+			
+		});
+		
 	}
 }

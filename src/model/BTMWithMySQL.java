@@ -23,7 +23,7 @@ import bitronix.tm.BitronixTransactionManager;
 		private static final String INSERT_QUERY =
 				"INSERT INTO databyyear(Countrycode, seriescode, yearc, data) VALUES(?, ?, ?, ?);";
 		private static final String DELETE_QUERY = 
-				"DELETE FROM databyyear WHERE countrycode = ? AND year = ? AND seriescode = ? AND data = ?";
+				"DELETE FROM databyyear WHERE countrycode = ? AND seriescode = ? AND yearc = ? AND data = ?";
 		private static final String UPDATE_QUERY = 
 				"UPDATE databyyear SET data = ? WHERE countrycode = ? AND yearc = ? AND seriescode = ? AND data = ?";
 		private static final String SELECT_QUERY =
@@ -88,10 +88,12 @@ import bitronix.tm.BitronixTransactionManager;
 
 			btm = TransactionManagerServices.getTransactionManager();
 		}	
+		/*
+		 * QUERIES THAT INSERTS TO DATABASE
+		 */
 		
-		
-		public static String insertFirstEUAM(){
-			String resulting_query = null;
+		public static boolean insertFirstEUAM(){
+			boolean result = false;
 			try {
 				btm.begin();
 				Connection connection = 
@@ -106,21 +108,387 @@ import bitronix.tm.BitronixTransactionManager;
 				pstmt.close();
 				connection.close();
 				btm.commit();
+				result = true;
 			}
 			catch (Exception ex) {
 				ex.printStackTrace();
 				try {
 					btm.rollback();
 				} catch (Exception e) {
+					result = false;
 					e.printStackTrace();
 				}
 			}
-			mySQLDS.close();
-			btm.shutdown();
-			if(resulting_query == null)
-				resulting_query = "error";
-			return resulting_query;
+			//mySQLDS.close();
+			//btm.shutdown();
+			return result;
 		}
+		
+		public static boolean insertSecondEUAM(){
+			boolean result = false;
+			try {
+				btm.begin();
+				Connection connection = 
+				mySQLDS.getConnection(USER_NAME, PASSWORD);
+				PreparedStatement pstmt = 
+				connection.prepareStatement(INSERT_QUERY);
+				pstmt.setString(1, "" + "ABW");
+				pstmt.setString(2, "" + "SE.PRM.ENRL.FE.ZS");
+				pstmt.setString(3, "" + "2016 [YR2016]");
+				pstmt.setString(4, "" + "50");
+				pstmt.executeUpdate();
+				pstmt.close();
+				connection.close();
+				btm.commit();
+				result = true;
+			}
+			catch (Exception ex) {
+				ex.printStackTrace();
+				try {
+					btm.rollback();
+				} catch (Exception e) {
+					result = false;
+					e.printStackTrace();
+				}
+			}
+			//mySQLDS.close();
+			//btm.shutdown();
+			return result;
+		}
+		
+		public static boolean insertFirstASAF(){
+			boolean result = false;
+			try {
+				btm.begin();
+				Connection connection = 
+				mySQLDS.getConnection(USER_NAME, PASSWORD);
+				PreparedStatement pstmt = 
+				connection.prepareStatement(INSERT_QUERY);
+				pstmt.setString(1, "" + "AFG");
+				pstmt.setString(2, "" + "SE.PRM.ENRL");
+				pstmt.setString(3, "" + "2016 [YR2016]");
+				pstmt.setString(4, "" + "10902");
+				pstmt.executeUpdate();
+				pstmt.close();
+				connection.close();
+				btm.commit();
+				result = true;
+			}
+			catch (Exception ex) {
+				ex.printStackTrace();
+				try {
+					btm.rollback();
+				} catch (Exception e) {
+					result = false;
+					e.printStackTrace();
+				}
+			}
+			//mySQLDS.close();
+			//btm.shutdown();
+			return result;
+		}
+		
+		public static boolean insertSecondASAF(){
+			boolean result = false;
+			try {
+				btm.begin();
+				Connection connection = 
+				mySQLDS.getConnection(USER_NAME, PASSWORD);
+				PreparedStatement pstmt = 
+				connection.prepareStatement(INSERT_QUERY);
+				pstmt.setString(1, "" + "AFG");
+				pstmt.setString(2, "" + "SE.PRM.ENRL.FE.ZS");
+				pstmt.setString(3, "" + "2016 [YR2016]");
+				pstmt.setString(4, "" + "50");
+				pstmt.executeUpdate();
+				pstmt.close();
+				connection.close();
+				btm.commit();
+				result = true;
+			}
+			catch (Exception ex) {
+				ex.printStackTrace();
+				try {
+					btm.rollback();
+				} catch (Exception e) {
+					result = false;
+					e.printStackTrace();
+				}
+			}
+			//mySQLDS.close();
+			//btm.shutdown();
+			return result;
+		}
+		
+		/*
+		 * QUERIES THAT DELETES FROM THE DATABASE
+		 */
+		
+		public static boolean deleteFirstEUAM(){
+			boolean result = false;
+			try {
+				btm.begin();
+				Connection connection = 
+				mySQLDS.getConnection(USER_NAME, PASSWORD);
+				PreparedStatement pstmt = 
+				connection.prepareStatement(DELETE_QUERY);
+				pstmt.setString(1, "" + "ABW");
+				pstmt.setString(2, "" + "SE.PRM.ENRL");
+				pstmt.setString(3, "" + "2016 [YR2016]");
+				pstmt.setString(4, "" + "10902");
+				pstmt.executeUpdate();
+				pstmt.close();
+				connection.close();
+				btm.commit();
+				result = true;
+			}
+			catch (Exception ex) {
+				ex.printStackTrace();
+				try {
+					btm.rollback();
+				} catch (Exception e) {
+					result = false;
+					e.printStackTrace();
+				}
+			}
+			//mySQLDS.close();
+			//btm.shutdown();
+			return result;
+		}
+		
+		public static boolean deleteSecondEUAM(){
+			boolean result = false;
+			try {
+				btm.begin();
+				Connection connection = 
+				mySQLDS.getConnection(USER_NAME, PASSWORD);
+				PreparedStatement pstmt = 
+				connection.prepareStatement(DELETE_QUERY);
+				pstmt.setString(1, "" + "ABW");
+				pstmt.setString(2, "" + "SE.PRM.ENRL.FE.ZS");
+				pstmt.setString(3, "" + "2016 [YR2016]");
+				pstmt.setString(4, "" + "50");
+				pstmt.executeUpdate();
+				pstmt.close();
+				connection.close();
+				btm.commit();
+				result = true;
+			}
+			catch (Exception ex) {
+				ex.printStackTrace();
+				try {
+					btm.rollback();
+				} catch (Exception e) {
+					result = false;
+					e.printStackTrace();
+				}
+			}
+			//mySQLDS.close();
+			//btm.shutdown();
+			return result;
+		}
+		
+		public static boolean deleteFirstASAF(){
+			boolean result = false;
+			try {
+				btm.begin();
+				Connection connection = 
+				mySQLDS.getConnection(USER_NAME, PASSWORD);
+				PreparedStatement pstmt = 
+				connection.prepareStatement(DELETE_QUERY);
+				pstmt.setString(1, "" + "AFG");
+				pstmt.setString(2, "" + "SE.PRM.ENRL");
+				pstmt.setString(3, "" + "2016 [YR2016]");
+				pstmt.setString(4, "" + "10902");
+				pstmt.executeUpdate();
+				pstmt.close();
+				connection.close();
+				btm.commit();
+				result = true;
+			}
+			catch (Exception ex) {
+				ex.printStackTrace();
+				try {
+					btm.rollback();
+				} catch (Exception e) {
+					result = false;
+					e.printStackTrace();
+				}
+			}
+			//mySQLDS.close();
+			//btm.shutdown();
+			return result;
+		}
+		
+		public static boolean deleteSecondASAF(){
+			boolean result = false;
+			try {
+				btm.begin();
+				Connection connection = 
+				mySQLDS.getConnection(USER_NAME, PASSWORD);
+				PreparedStatement pstmt = 
+				connection.prepareStatement(DELETE_QUERY);
+				pstmt.setString(1, "" + "AFG");
+				pstmt.setString(2, "" + "SE.PRM.ENRL.FE.ZS");
+				pstmt.setString(3, "" + "2016 [YR2016]");
+				pstmt.setString(4, "" + "50");
+				pstmt.executeUpdate();
+				pstmt.close();
+				connection.close();
+				btm.commit();
+				result = true;
+			}
+			catch (Exception ex) {
+				ex.printStackTrace();
+				try {
+					btm.rollback();
+				} catch (Exception e) {
+					result = false;
+					e.printStackTrace();
+				}
+			}
+			//mySQLDS.close();
+			//btm.shutdown();
+			return result;
+		}
+		
+		/*
+		 * QUERIES THAT UPDATES THE DATABASE
+		 */
+		
+		public static boolean updateFirstEUAM(){
+			boolean result = false;
+			try {
+				btm.begin();
+				Connection connection = 
+				mySQLDS.getConnection(USER_NAME, PASSWORD);
+				PreparedStatement pstmt = 
+				connection.prepareStatement(UPDATE_QUERY);
+				pstmt.setString(1, "" + "51.382");
+				pstmt.setString(2, "" + "ABW");
+				pstmt.setString(3, "" + "2016 [YR2016]");
+				pstmt.setString(4, "" + "SE.PRM.ENRL.FE.ZS");
+				pstmt.setString(5, "" + "48.857");
+				pstmt.executeUpdate();
+				pstmt.close();
+				connection.close();
+				btm.commit();
+				result = true;
+			}
+			catch (Exception ex) {
+				ex.printStackTrace();
+				try {
+					btm.rollback();
+				} catch (Exception e) {
+					result = false;
+					e.printStackTrace();
+				}
+			}
+			//mySQLDS.close();
+			//btm.shutdown();
+			return result;
+		}
+		
+		public static boolean updateSecondEUAM(){
+			boolean result = false;
+			try {
+				btm.begin();
+				Connection connection = 
+				mySQLDS.getConnection(USER_NAME, PASSWORD);
+				PreparedStatement pstmt = 
+				connection.prepareStatement(UPDATE_QUERY);
+				pstmt.setString(1, "" + "48.857");
+				pstmt.setString(2, "" + "ABW");
+				pstmt.setString(3, "" + "2016 [YR2016]");
+				pstmt.setString(4, "" + "SE.PRM.ENRL.FE.ZS");
+				pstmt.setString(5, "" + "51.382");
+				pstmt.executeUpdate();
+				pstmt.close();
+				connection.close();
+				btm.commit();
+				result = true;
+			}
+			catch (Exception ex) {
+				ex.printStackTrace();
+				try {
+					btm.rollback();
+				} catch (Exception e) {
+					result = false;
+					e.printStackTrace();
+				}
+			}
+			//mySQLDS.close();
+			//btm.shutdown();
+			return result;
+		}
+		
+		public static boolean updateFirstASAF(){
+			boolean result = false;
+			try {
+				btm.begin();
+				Connection connection = 
+				mySQLDS.getConnection(USER_NAME, PASSWORD);
+				PreparedStatement pstmt = 
+				connection.prepareStatement(UPDATE_QUERY);
+				pstmt.setString(1, "" + "47.857");
+				pstmt.setString(2, "" + "BEL");
+				pstmt.setString(3, "" + "2016 [YR2016]");
+				pstmt.setString(4, "" + "SE.PRM.ENRL.FE.ZS");
+				pstmt.setString(5, "" + "48.648");
+				pstmt.executeUpdate();
+				pstmt.close();
+				connection.close();
+				btm.commit();
+				result = true;
+			}
+			catch (Exception ex) {
+				ex.printStackTrace();
+				try {
+					btm.rollback();
+				} catch (Exception e) {
+					result = false;
+					e.printStackTrace();
+				}
+			}
+			//mySQLDS.close();
+			//btm.shutdown();
+			return result;
+		}
+		
+		public static boolean updateSecondASAF(){
+			boolean result = false;
+			try {
+				btm.begin();
+				Connection connection = 
+				mySQLDS.getConnection(USER_NAME, PASSWORD);
+				PreparedStatement pstmt = 
+				connection.prepareStatement(UPDATE_QUERY);
+				pstmt.setString(1, "" + "48.648");
+				pstmt.setString(2, "" + "BEL");
+				pstmt.setString(3, "" + "2016 [YR2016]");
+				pstmt.setString(4, "" + "SE.PRM.ENRL.FE.ZS");
+				pstmt.setString(5, "" + "47.857");
+				pstmt.executeUpdate();
+				pstmt.close();
+				connection.close();
+				btm.commit();
+				result = true;
+			}
+			catch (Exception ex) {
+				ex.printStackTrace();
+				try {
+					btm.rollback();
+				} catch (Exception e) {
+					result = false;
+					e.printStackTrace();
+				}
+			}
+			//mySQLDS.close();
+			//btm.shutdown();
+			return result;
+		}
+		
+		
 		/*
 		 * QUERIES THAT SELECTS FROM THE DATABASE
 		 */
@@ -154,8 +522,8 @@ import bitronix.tm.BitronixTransactionManager;
 					e.printStackTrace();
 				}
 			}
-			mySQLDS.close();
-			btm.shutdown();
+//			mySQLDS.close();
+//			btm.shutdown();
 			if(resulting_query == null)
 				resulting_query = "error";
 			return resulting_query;
@@ -192,8 +560,8 @@ import bitronix.tm.BitronixTransactionManager;
 					e.printStackTrace();
 				}
 			}
-			mySQLDS.close();
-			btm.shutdown();
+//			mySQLDS.close();
+//			btm.shutdown();
 			if(resulting_query == null)
 				resulting_query = "error";
 			return resulting_query;
@@ -206,9 +574,9 @@ import bitronix.tm.BitronixTransactionManager;
 				Connection connection = 
 				mySQLDS.getConnection(USER_NAME, PASSWORD);
 				PreparedStatement pstmt = 
-				connection.prepareStatement(SELECT_QUERY_SECOND);
+				connection.prepareStatement(SELECT_QUERY_THIRD);
 				ResultSet rs = pstmt.executeQuery();
-				resulting_query = "Number of enrolled primary students and out of school primary (for both sexes)\n";
+				resulting_query = "Male versus Female Literacy Rate";
 				while(rs.next()){
 					System.out.println("DataByYear: " + 
 					rs.getString("countrycode") + " " +
@@ -230,8 +598,121 @@ import bitronix.tm.BitronixTransactionManager;
 					e.printStackTrace();
 				}
 			}
-			mySQLDS.close();
-			btm.shutdown();
+//			mySQLDS.close();
+//			btm.shutdown();
+			if(resulting_query == null)
+				resulting_query = "error";
+			return resulting_query;
+		}
+		
+		public static String selectRatio(){
+			String resulting_query = null;
+			try {
+				btm.begin();
+				Connection connection = 
+				mySQLDS.getConnection(USER_NAME, PASSWORD);
+				PreparedStatement pstmt = 
+				connection.prepareStatement(SELECT_QUERY_FOURTH);
+				ResultSet rs = pstmt.executeQuery();
+				resulting_query = "Pupil-Teacher ratio versus actual Pupil-Teacher count in primary education\n";
+				while(rs.next()){
+					System.out.println("DataByYear: " + 
+					rs.getString("countrycode") + " " +
+					rs.getString("yearc") + " " +
+					rs.getString("ActualPupilTeacherRatio"));
+					resulting_query += ""+ rs.getString("countrycode") + " " + rs.getString("yearc") + " " + rs.getString("ActualPupilTeacherRatio") + "\n";
+				}
+				rs.close();
+				pstmt.close();
+				connection.close();
+				btm.commit();
+			}
+			catch (Exception ex) {
+				ex.printStackTrace();
+				try {
+					btm.rollback();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+//			mySQLDS.close();
+//			btm.shutdown();
+			if(resulting_query == null)
+				resulting_query = "error";
+			return resulting_query;
+		}
+		
+		public static String selectRequired(){
+			String resulting_query = null;
+			try {
+				btm.begin();
+				Connection connection = 
+				mySQLDS.getConnection(USER_NAME, PASSWORD);
+				PreparedStatement pstmt = 
+				connection.prepareStatement(SELECT_QUERY_FIFTH);
+				ResultSet rs = pstmt.executeQuery();
+				resulting_query = "Required number of educational years in relation with the country's income";
+				while(rs.next()){
+					System.out.println("DataByYear: " + 
+					rs.getString("countrycode") + " " +
+					rs.getString("yearc") + " " +
+					rs.getString("YrsComEd") + " " +
+					rs.getString("income"));
+					resulting_query += ""+ rs.getString("countrycode") + " " + rs.getString("yearc") + " " + rs.getString("YrsComEd")+ " " + rs.getString("income")+ "\n";
+				}
+				rs.close();
+				pstmt.close();
+				connection.close();
+				btm.commit();
+			}
+			catch (Exception ex) {
+				ex.printStackTrace();
+				try {
+					btm.rollback();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+//			mySQLDS.close();
+//			btm.shutdown();
+			if(resulting_query == null)
+				resulting_query = "error";
+			return resulting_query;
+		}
+		
+		public static String selectVSPrimary(){
+			String resulting_query = null;
+			try {
+				btm.begin();
+				Connection connection = 
+				mySQLDS.getConnection(USER_NAME, PASSWORD);
+				PreparedStatement pstmt = 
+				connection.prepareStatement(SELECT_QUERY_SIXTH);
+				ResultSet rs = pstmt.executeQuery();
+				resulting_query = "Female VS Male Primary Students";
+				while(rs.next()){
+					System.out.println("DataByYear: " + 
+					rs.getString("FemalePercENRPRM.countrycode") + " " +
+					rs.getString("FemalePercENRPRM.yearc") + " " +
+					rs.getString("FemalePrimary") + " " +
+					rs.getString("MalePrimary"));
+					resulting_query += ""+ rs.getString("FemalePercENRPRM.countrycode") + " " + rs.getString("FemalePercENRPRM.yearc") + " " + rs.getString("FemalePrimary")+ " " + rs.getString("MalePrimary")+ "\n";
+				}
+				rs.close();
+				pstmt.close();
+				connection.close();
+				btm.commit();
+			}
+			catch (Exception ex) {
+				ex.printStackTrace();
+				try {
+					btm.rollback();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+//			mySQLDS.close();
+//			btm.shutdown();
 			if(resulting_query == null)
 				resulting_query = "error";
 			return resulting_query;
@@ -246,7 +727,7 @@ import bitronix.tm.BitronixTransactionManager;
 				PreparedStatement pstmt = 
 				connection.prepareStatement(SELECT_QUERY_SEVENTH);
 				ResultSet rs = pstmt.executeQuery();
-				resulting_query = "";
+				resulting_query = "Primary education,  pupils (% female)\n";
 				while(rs.next()){
 					System.out.println("DataByYear: " + 
 					rs.getString("countrycode") + " " +
@@ -267,23 +748,23 @@ import bitronix.tm.BitronixTransactionManager;
 					e.printStackTrace();
 				}
 			}
-			mySQLDS.close();
-			btm.shutdown();
+//			mySQLDS.close();
+//			btm.shutdown();
 			if(resulting_query == null)
 				resulting_query = "error";
 			return resulting_query;
 		}
 		
-		public static String selectAll(){
+		public static String selectPEEnrollment(){
 			String resulting_query = null;
 			try {
 				btm.begin();
 				Connection connection = 
 				mySQLDS.getConnection(USER_NAME, PASSWORD);
 				PreparedStatement pstmt = 
-				connection.prepareStatement(SELECT_QUERY);
+				connection.prepareStatement(SELECT_QUERY_EIGHT);
 				ResultSet rs = pstmt.executeQuery();
-				resulting_query = "";
+				resulting_query = "Enrolment in primary education,  both sexes (number)\n";
 				while(rs.next()){
 					System.out.println("DataByYear: " + 
 					rs.getString("countrycode") + " " +
@@ -304,18 +785,18 @@ import bitronix.tm.BitronixTransactionManager;
 					e.printStackTrace();
 				}
 			}
-			mySQLDS.close();
-			btm.shutdown();
+//			mySQLDS.close();
+//			btm.shutdown();
 			if(resulting_query == null)
 				resulting_query = "error";
 			return resulting_query;
 		}
 		
 		
-		public static void main(String[] args) {
-			new BTMWithMySQL();		
-		
-			
+//		public static void main(String[] args) {
+//			new BTMWithMySQL();
+//			
+//		}
 			
 /*			try{
 				btm.begin();
@@ -395,34 +876,34 @@ import bitronix.tm.BitronixTransactionManager;
 			mySQLDS.close();
 			btm.shutdown();
 		}*/
-			try {
-				btm.begin();
-				Connection connection = 
-				mySQLDS.getConnection(USER_NAME, PASSWORD);
-				PreparedStatement pstmt = 
-				connection.prepareStatement(SELECT_QUERY);
-				ResultSet rs = pstmt.executeQuery();
-				while(rs.next()){
-					System.out.println("DataByYear: " + 
-					rs.getString("countrycode") + " " +
-					rs.getString("yearc") + " " +
-					rs.getString("data"));
-				}
-				rs.close();
-				pstmt.close();
-				connection.close();
-				btm.commit();
-			}
-			catch (Exception ex) {
-				ex.printStackTrace();
-				try {
-					btm.rollback();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			mySQLDS.close();
-			btm.shutdown();
-		}
+//			try {
+//				btm.begin();
+//				Connection connection = 
+//				mySQLDS.getConnection(USER_NAME, PASSWORD);
+//				PreparedStatement pstmt = 
+//				connection.prepareStatement(SELECT_QUERY);
+//				ResultSet rs = pstmt.executeQuery();
+//				while(rs.next()){
+//					System.out.println("DataByYear: " + 
+//					rs.getString("countrycode") + " " +
+//					rs.getString("yearc") + " " +
+//					rs.getString("data"));
+//				}
+//				rs.close();
+//				pstmt.close();
+//				connection.close();
+//				btm.commit();
+//			}
+//			catch (Exception ex) {
+//				ex.printStackTrace();
+//				try {
+//					btm.rollback();
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			mySQLDS.close();
+//			btm.shutdown();
+//		}
 	}
 

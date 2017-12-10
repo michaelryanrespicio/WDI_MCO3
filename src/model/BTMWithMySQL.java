@@ -25,7 +25,7 @@ import bitronix.tm.BitronixTransactionManager;
 		private static final String DELETE_QUERY = 
 				"DELETE FROM databyyear WHERE countrycode = ? AND seriescode = ? AND yearc = ? AND data = ?";
 		private static final String UPDATE_QUERY = 
-				"UPDATE databyyear SET data = ? WHERE countrycode = ? AND yearc = ? AND seriescode = ? AND data = ?";
+				"UPDATE databy	year SET data = ? WHERE countrycode = ? AND yearc = ? AND seriescode = ? AND data = ?";
 		private static final String SELECT_QUERY =
 				"SELECT * FROM databyyear WHERE countrycode = \"ABW\"";
 		private static final String SELECT_QUERY_FIRST =

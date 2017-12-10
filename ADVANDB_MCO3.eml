@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inheritJdk="true">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="btm-2.1.4.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/btm-2.1.4.jar!/"/>
+	</lib>
+	<lib name="geronimo-jta_1.1_spec-1.1.1.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/geronimo-jta_1.1_spec-1.1.1.jar!/"/>
+	</lib>
+	<lib name="mysql-connector-java-5.1.45-bin.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/mysql-connector-java-5.1.45-bin.jar!/"/>
+	</lib>
+	<lib name="slf4j-api-1.7.25.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.25.jar!/"/>
+	</lib>
+	<lib name="slf4j-jdk14-1.7.25.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/slf4j-jdk14-1.7.25.jar!/"/>
+	</lib>
+</component>
